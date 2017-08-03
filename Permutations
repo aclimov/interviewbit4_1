@@ -1,0 +1,28 @@
+public class Solution {
+	public ArrayList<ArrayList<Integer>> permute(ArrayList<Integer> a) {
+	    
+	    ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+	    ArrayList<Integer> temp = new ArrayList<Integer>();
+	    gen(res,temp,a,a.size());
+	     
+	     return res;
+	}
+	
+	
+	public void gen(ArrayList<ArrayList<Integer>> res,ArrayList<Integer> temp, ArrayList<Integer> nums,int idx){
+	    if(temp.size()==idx){
+	        res.add(new ArrayList(temp));
+	        return;
+	    }
+	    
+	    for(int i=0;i<nums.size();i++){
+	        temp.add(nums.get(i));
+	        ArrayList x = new ArrayList(nums);
+	        x.remove(nums.get(i));
+	        gen(res,temp,x,idx);
+	        temp.remove(nums.get(i));
+	    }
+	    
+	   
+	}
+}
