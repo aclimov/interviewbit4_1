@@ -1,0 +1,37 @@
+public class Solution {
+    Hashtable<Character, ArrayList<String>> h;
+    ArrayList<String> res;
+	public ArrayList<String> letterCombinations(String a) {
+	    res = new ArrayList();
+	    h = new Hashtable();
+	    h.put('0',new ArrayList<String>(Arrays.asList("0")));
+	    h.put('1',new ArrayList<String>(Arrays.asList("1")));
+	    h.put('2',new ArrayList<String>(Arrays.asList("a","b","c")));
+	    h.put('3',new ArrayList<String>(Arrays.asList("d","e","f")));
+	    h.put('4',new ArrayList<String>(Arrays.asList("g","h","i")));
+	    h.put('5',new ArrayList<String>(Arrays.asList("j","k","l")));
+	    h.put('6',new ArrayList<String>(Arrays.asList("m","n","o")));
+	    h.put('7',new ArrayList<String>(Arrays.asList("p","q","r","s")));
+	    h.put('8',new ArrayList<String>(Arrays.asList("t","u","v")));
+	    h.put('9',new ArrayList<String>(Arrays.asList("w","x","y","z")));
+	    
+	    gen(a,new StringBuilder(), 0);
+	    return res;
+	}
+	
+	void gen(String a, StringBuilder sb, int idx){
+	    if(idx == a.length()){
+	        res.add(sb.toString());
+	        return;
+	    }
+	    
+	   // for(int i=idx;i<a.length();i++){
+	        ArrayList lrs = h.get(a.charAt(idx));
+	        for(int j=0;j<lrs.size();j++){
+	            sb.append(lrs.get(j));
+	            gen(a,sb,idx+1);
+	            sb.deleteCharAt(sb.length()-1);
+	        }
+	   // }
+	}
+}
