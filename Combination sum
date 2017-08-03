@@ -1,0 +1,46 @@
+public class Solution {
+	public ArrayList<ArrayList<Integer>> combinationSum(ArrayList<Integer> a, int b) {
+	    
+	    ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+	    
+	    if(a.size()==0) return res;
+	    
+	    Collections.sort(a);
+	    ArrayList<Integer> vals = new ArrayList();
+	    vals.add(a.get(0));
+	    int j=0;
+	    
+	    for(int i=1;i<a.size();i++){
+            if(a.get(i)!=vals.get(j)){
+                vals.add(a.get(i));
+                j++;
+            }     
+	    }
+	    
+	    
+	    ArrayList<Integer> temp = new ArrayList<Integer>();
+	    
+	    gen( res,temp, vals,0, b, 0);
+	    
+	    return res;
+	}
+	
+	public void gen(ArrayList<ArrayList<Integer>> res, ArrayList<Integer> temp, ArrayList<Integer> vals, int sum, int maxsum, int idx){
+	    
+	    if(sum>maxsum){return;}
+	    if(sum==maxsum){
+	        res.add(new ArrayList<Integer>(temp));
+	        return;
+	    }else{
+	        for(int i=idx;i<vals.size();i++){
+	            temp.add(vals.get(i));
+	            sum+=vals.get(i);
+	            gen(res,temp,vals,sum,maxsum,i);
+	            temp.remove(temp.size()-1);
+	            sum-=vals.get(i);
+	        }
+	    }
+	}
+	
+	
+}
