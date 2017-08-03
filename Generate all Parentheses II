@@ -1,0 +1,35 @@
+public class Solution {
+	public ArrayList<String> generateParenthesis(int a) {
+	    
+	    
+	    
+	    ArrayList<String> res = new ArrayList<String>();
+	    
+	    if(a==0) return res;
+	    
+	    StringBuilder sb = new StringBuilder();
+	    
+	    gen(res, sb, 0,a, 0,0);
+	    
+	    return res;
+	}
+	
+	public void gen(ArrayList<String> res, StringBuilder sb, int idx, int num, int l, int r){
+	    if(l>num||r>num)return;
+	    if(r>l)return;
+	    if(idx==num*2){
+	        res.add(sb.toString());
+	        
+	        return;
+	    }
+	    
+	    sb.append("(");
+	    gen(res,sb,idx+1,num,l+1,r);
+	    sb.deleteCharAt(sb.length()-1);
+	    
+	    
+	    sb.append(")");
+	    gen(res,sb, idx+1,num, l, r+1);
+	    sb.deleteCharAt(sb.length()-1);
+	}
+}
