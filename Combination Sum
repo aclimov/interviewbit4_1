@@ -1,0 +1,26 @@
+public class Solution {
+	public ArrayList<ArrayList<Integer>> combinationSum(ArrayList<Integer> a, int b) {
+	    
+	    ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+	    Collections.sort(a);
+	    comb(res,new ArrayList(),a,b,0,0);
+	    return res;
+	}
+	
+	void comb(ArrayList<ArrayList<Integer>> res, ArrayList<Integer> temp, ArrayList<Integer> a, int b, int sum, int idx){
+        if(sum==b){
+            res.add(new ArrayList(temp));
+            return;
+        }
+        else if(sum>b){
+            return;
+        }
+        for(int i=idx;i<a.size();i++){
+            if(i>0&&a.get(i)==a.get(i-1))continue;
+            temp.add(a.get(i));
+            comb(res,temp,a,b,sum+a.get(i),i);
+            temp.remove(temp.size()-1);
+        }
+	}
+	
+}
