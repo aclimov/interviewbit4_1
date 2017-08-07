@@ -1,0 +1,22 @@
+public class Solution {
+	public ArrayList<ArrayList<Integer>> subsetsWithDup(ArrayList<Integer> a) {
+	    
+	    ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+	    Collections.sort(a);
+	    boolean used[] = new boolean[a.size()];
+	    set(res,new ArrayList(),a,0,used);
+	    return res;
+	}
+	
+	void set(ArrayList<ArrayList<Integer>> res, ArrayList<Integer> temp, ArrayList<Integer> a,int idx, boolean[]used ){
+        res.add(new ArrayList(temp));
+        for(int i=idx;i<a.size();i++){
+            if(used[i]||i>0&&a.get(i)==a.get(i-1)&&!used[i-1])continue;
+            temp.add(a.get(i));
+            used[i]=true;
+            set(res,temp,a,i+1,used);
+            temp.remove(temp.size()-1);
+            used[i] = false;
+        }
+	}
+}
