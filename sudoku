@@ -1,0 +1,66 @@
+public class Solution {
+	public void solveSudoku(ArrayList<ArrayList<Character>> a) {
+	    
+	    solve(a);
+	}
+	
+	boolean solve(ArrayList<ArrayList<Character>> a){
+	    
+	    for(int i1 = 0;i1<9;i1++){
+	        for(int j1 = 0;j1<9;j1++){
+	           if(a.get(i1).get(j1)!='.')continue;
+	            
+	           for(int c = 49;c<=57;c++){
+	                Character cc = (char)c;
+	                if(a.get(i1).contains(cc)||!validate(a,i1,j1,cc)){
+	                    continue;
+	                }
+	                a.get(i1).set(j1,cc);
+	                if(solve(a)){
+	                    return true;
+	                }else{
+	                    a.get(i1).set(j1,'.');
+	                }
+	           }
+	           return false;
+	        }
+	    }
+	    
+	    return true;
+	}
+	
+	boolean validate(ArrayList<ArrayList<Character>> a, int i , int j , Character x){
+	    //check row
+	    for(int c = 0;c<9;c++){
+	        if(a.get(i).get(c)==x){
+	            return false;
+	        }
+	    }
+	    //check col
+	    for(int r =0;r<9;r++){
+	        if(a.get(r).get(j)==x){
+	            return false;
+	        }
+	    }
+	    
+	    //check current block
+	    //get square
+	    int i1=0;
+	    if(i>2&&i<6){i1=3;}
+	    else if(i>=6){i1=6;}
+	    
+	    int j1=0;
+	    if(j>2&&j<6){j1=3;}
+	    else if(j>=6){j1=6;}
+	    
+	    for(int i2 = i1;i2<i1+3;i2++){
+	        for(int j2 = j1;j2<j1+3;j2++){
+	            if(a.get(i2).get(j2)==x){
+	                return false;
+	            }
+	        }
+	    }
+	    return true;
+	    
+	}
+}
