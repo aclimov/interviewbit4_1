@@ -1,0 +1,28 @@
+public class Solution {
+	public ArrayList<ArrayList<Integer>> combinationSum(ArrayList<Integer> a, int b) {
+	    
+	    ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+	    
+	    Collections.sort(a);
+	    boolean[] used =new boolean[a.size()];
+	    sum(res,new ArrayList(),a,b,0,0,used);
+	    return res;
+	}
+	
+	void sum(ArrayList<ArrayList<Integer>> res,ArrayList<Integer> temp, ArrayList<Integer> a,int b,int sum, int idx,boolean[]used){
+	    if(sum==b){
+	        res.add(new ArrayList(temp));
+	        return;
+	    }else if(sum>b){
+	        return;
+	    }
+	    for(int i=idx;i<a.size();i++){
+	        if(used[i]||i>0&&a.get(i)==a.get(i-1)&&!used[i-1])continue;
+	        used[i] = true;
+	        temp.add(a.get(i));
+	        sum(res,temp,a,b,sum+a.get(i),i+1,used);
+	        temp.remove(temp.size()-1);
+	        used[i] = false;
+	    }
+	}
+}
