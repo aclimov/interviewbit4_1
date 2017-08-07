@@ -1,0 +1,49 @@
+public class Solution {
+	public ArrayList<ArrayList<String>> solveNQueens(int a) {
+	    ArrayList<ArrayList<String>> res = new ArrayList<ArrayList<String>>();
+	    //ArrayList<ArrayList<Integer>> res_temp = new ArrayList<ArrayList<Integer>>();
+	    
+	    solve(res, new ArrayList<Integer>(), 0,a);
+	    
+	    //transform 
+	    //ArrayList<ArrayList<Integer>>  ==>>ArrayList<ArrayList<String>>
+	    
+	    return res;
+	}
+	
+	void solve(ArrayList<ArrayList<String>> res, ArrayList<Integer> temp, int idx, int n){
+	    if(temp.size()==n){
+	        ArrayList<String>t = new ArrayList();
+	        StringBuilder sb = new StringBuilder();
+	        for(Integer col:temp){
+	            for(int i=0;i<n;i++){
+	                sb.append(i==col?"Q":".");
+	            }
+	            t.add(sb.toString());
+	            sb.setLength(0);
+	        }
+	        res.add(t);
+	        return;
+	    }
+	    for(int i=0;i<n;i++){
+	        if(!temp.contains(i)&&validate(temp,i)){
+	            temp.add(i);
+	            solve(res,temp,i,n);
+	            temp.remove(temp.size()-1);
+	        }
+	    }
+	}
+	
+	boolean validate(ArrayList<Integer> temp, int x){
+	    int i=temp.size()-1;
+	    int j=1;
+	    
+	    while(i>=0){
+	        if(Math.abs(temp.get(i)-x)==j){
+	            return false;
+	        }
+	        i--;j++;
+	    }
+	    return true;
+	}
+}
